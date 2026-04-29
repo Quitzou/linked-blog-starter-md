@@ -20,13 +20,24 @@ später wsl für docker?
 
 # Datensatz
 
+![[Pasted image 20260429173402.png]]
+
 - 100Hz
 - in mm
-- 
+- xyz von jedem Punkt
+- https://springernature.figshare.com/articles/dataset/3D_motion_analysis_dataset_of_healthy_young_adult_volunteers_walking_and_running_on_overground_and_treadmill/25592865/1?file=45621447
 
 # Arbeitszeit
 
-
+- 28.04. -- 9:30 - 12:00, 13:00 - 17:30
+	- research zu autoencoder und attention layer
+	- studi Jour Fixe
+	- setup von obsidian für doku
+- 29.04. -- 9:15 - 12:00, 13:00 - 17:30
+	- Absprache mit Manuel zum Projekt und Aufgaben für die ersten Wochen (im git)
+	- PC setup 
+		- Ubuntu, Datensatz, Obsidian
+	- erster Blick über Datensatz, ist schon vorsortiert in einzelnen Files, globales Koordinatensystem, Fußkontakt und lösen hinterlegt, 100Hz, keine Rotationen -> nur xyz, Start und Länge der Aufnahme
 # Quellen
 
  - anomaly detection with LSTM [Autoencoder]: https://dl.acm.org/doi/pdf/10.1145/3416013.3426457?__cf_chl_tk=fT.pJzxyMvxGBeRbMvMG2I0OT66WjWlLp3Vj0bSAoS0-1777448132-1.0.1.1-3lTNYQHoZ23JlIp0df1C4v3dCpy6JrRLT7ruQiDMbdI
