@@ -15,9 +15,6 @@ was hat digit für gelenke, was ist sinvolles mapping für loss
 zu 3. alle gerade aus laufen lassen (oder nicht in globalem koordinatensystem)
 foot contacts = welcher fuß hat bodenkontakt
 
-
-später wsl für docker?
-
 # Datensatz
 
 ![[Pasted image 20260429173402.png]]
@@ -33,11 +30,12 @@ später wsl für docker?
 	- research zu autoencoder und attention layer
 	- studi Jour Fixe
 	- setup von obsidian für doku
-- 29.04. -- 9:15 - 12:00, 13:00 - 17:30
+- 29.04. -- 9:15 - 12:00, 13:00 - 18:00
 	- Absprache mit Manuel zum Projekt und Aufgaben für die ersten Wochen (im git)
 	- PC setup 
 		- Ubuntu, Datensatz, Obsidian
 	- erster Blick über Datensatz, ist schon vorsortiert in einzelnen Files, globales Koordinatensystem, Fußkontakt und lösen hinterlegt, 100Hz, keine Rotationen -> nur xyz, Start und Länge der Aufnahme
+- 30.04. -- 9:45 - 12:00, 13:00 - 18:00
 # Quellen
 
  - anomaly detection with LSTM [Autoencoder]: https://dl.acm.org/doi/pdf/10.1145/3416013.3426457?__cf_chl_tk=fT.pJzxyMvxGBeRbMvMG2I0OT66WjWlLp3Vj0bSAoS0-1777448132-1.0.1.1-3lTNYQHoZ23JlIp0df1C4v3dCpy6JrRLT7ruQiDMbdI
