@@ -36,7 +36,7 @@ foot contacts = welcher fuß hat bodenkontakt
 	- PC setup 
 		- Ubuntu, Datensatz, Obsidian
 	- erster Blick über Datensatz, ist schon vorsortiert in einzelnen Files, globales Koordinatensystem, Fußkontakt und lösen hinterlegt, 100Hz, keine Rotationen -> nur xyz, Start und Länge der Aufnahme
-- 30.04. -- 9:45 - 12:00, 13:00 - 18:00
+- 30.04. -- 9:45 - 12:00, 13:00 - 17:30
 	- poetry setup angefangen, venv mit ersten requirements geschrieben
 	- vs code setup (Problem mit Keyring)
 	- Problem mit Obsidian gefixt
