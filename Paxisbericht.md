@@ -21,10 +21,14 @@ foot contacts = welcher fuß hat bodenkontakt
 
 - 100Hz
 - in mm
-- xyz von jedem Punkt
+- xyz von jedem Punkt; hip, knee, ankle: deg, force, moment, power
 - Metadaten in metadata.xlsx (Längen, distanzen ...)
 - https://springernature.figshare.com/articles/dataset/3D_motion_analysis_dataset_of_healthy_young_adult_volunteers_walking_and_running_on_overground_and_treadmill/25592865/1?file=45621447
-- keine beschleuigungen -> selber berechnen
+- Daten lesen: df = pd.read_csv('tests/test.csv', skiprows=13, nrows=792)
+
+# Poetry
+
+- Pakete herunterladen: poetry add pandas
 # Arbeitszeit
 
 - 28.04. -- 9:30 - 12:00, 13:00 - 17:30
@@ -41,6 +45,8 @@ foot contacts = welcher fuß hat bodenkontakt
 	- vs code setup (Problem mit Keyring)
 	- Problem mit Obsidian gefixt
 	- python excel tut , aber noch nicht fertig
+- 04.05. -- 10:45 - 12:15, 12:45 - 17:30
+	- 
 # Quellen
 
  - anomaly detection with LSTM [Autoencoder]: https://dl.acm.org/doi/pdf/10.1145/3416013.3426457?__cf_chl_tk=fT.pJzxyMvxGBeRbMvMG2I0OT66WjWlLp3Vj0bSAoS0-1777448132-1.0.1.1-3lTNYQHoZ23JlIp0df1C4v3dCpy6JrRLT7ruQiDMbdI
