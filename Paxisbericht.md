@@ -25,7 +25,12 @@ foot contacts = welcher fuß hat bodenkontakt
 - Metadaten in metadata.xlsx (Längen, distanzen ...)
 - https://springernature.figshare.com/articles/dataset/3D_motion_analysis_dataset_of_healthy_young_adult_volunteers_walking_and_running_on_overground_and_treadmill/25592865/1?file=45621447
 - Daten lesen: df = pd.read_csv('tests/test.csv', skiprows=13, nrows=792)
-
+- gibt auch Joint positions?
+- Normalisieren mit teilen durch Körpergröße?
+![[Plug-in_Gate_bones1.png]]
+![[Plug-in_Gate_bones2.png]]
+![[Plug-in_Gate_bones3.png]]
+- https://help.vicon.com/download/attachments/11378719/Plug-in%20Gait%20Reference%20Guide.pdf
 # Poetry
 
 - Pakete herunterladen: poetry add pandas
@@ -46,7 +51,13 @@ foot contacts = welcher fuß hat bodenkontakt
 	- Problem mit Obsidian gefixt
 	- python excel tut , aber noch nicht fertig
 - 04.05. -- 10:45 - 12:15, 12:45 - 17:30
-	- 
+	- weiter durch Datensatz + Doku, git pushes/ pulls, csv reader weiter
+- 05.05. -- 10:20 - 13:00, 13:30 - 17:30
+	- vor allem wichtige Daten im dataset zusammengetragen und im csv reader diese in den output übernommen
+	- angefangen nicht präsente Daten zu berechnen 
+- 06.05. -- 9:40 - 12:20, 14:20 - 17:30
+	- csv_reader: contacts, gate_phase
+	- gitlab + bericht + stundenzettel setup
 # Quellen
 
  - anomaly detection with LSTM [Autoencoder]: https://dl.acm.org/doi/pdf/10.1145/3416013.3426457?__cf_chl_tk=fT.pJzxyMvxGBeRbMvMG2I0OT66WjWlLp3Vj0bSAoS0-1777448132-1.0.1.1-3lTNYQHoZ23JlIp0df1C4v3dCpy6JrRLT7ruQiDMbdI
