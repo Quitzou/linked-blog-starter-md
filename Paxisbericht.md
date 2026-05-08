@@ -31,6 +31,27 @@ foot contacts = welcher fuß hat bodenkontakt
 ![[Plug-in_Gate_bones2.png]]
 ![[Plug-in_Gate_bones3.png]]
 - https://help.vicon.com/download/attachments/11378719/Plug-in%20Gait%20Reference%20Guide.pdf
+
+## Normalisierung
+
+### a) Einfach: 
+alle Pos / Körpergröße
+### b) Template Skeleton:
+- Einheit: bodysize \[bs]
+	- Gesamtgröße = 1
+	- Längen von Körperteilen -> Proportionen
+	- Geschwindigkeit: bs/s
+	- für gegebene Größe dann umrechenbar, mit * Körpergröße
+
+Berechnung: 
+- nparray mit alten und eins mit neuen Koordinaten
+- nächste Joint Positionen normalisieren mit: $$ (joint - pelv) * proportion / boneLength$$ 
+- Rotation 
+- Positionen parent joint -> joint normalisieren 
+	- Positionen pelv -> joint = pelv -> parent + parent -> joint
+
+In aktueller implementierung:
+- komisch, dass vorzeichen von RHJC und LHJC in allen dim negativ
 # Poetry
 
 - Pakete herunterladen: poetry add pandas
@@ -58,6 +79,8 @@ foot contacts = welcher fuß hat bodenkontakt
 - 06.05. -- 9:40 - 12:20, 14:20 - 17:30
 	- csv_reader: contacts, gate_phase
 	- gitlab + bericht + stundenzettel setup
+- 08.05. -- 10:00 - 11:45, 12:45 - 17:00
+	- velocities fertig, angefangen workflow dataset -> tensor, gedanken normalisierung: einfach/ genau? + umsetzung
 # Quellen
 
  - anomaly detection with LSTM [Autoencoder]: https://dl.acm.org/doi/pdf/10.1145/3416013.3426457?__cf_chl_tk=fT.pJzxyMvxGBeRbMvMG2I0OT66WjWlLp3Vj0bSAoS0-1777448132-1.0.1.1-3lTNYQHoZ23JlIp0df1C4v3dCpy6JrRLT7ruQiDMbdI
