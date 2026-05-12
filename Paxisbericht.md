@@ -55,6 +55,12 @@ In aktueller implementierung:
 # Poetry
 
 - Pakete herunterladen: poetry add pandas
+
+# Fragen Manuel
+
+- Speicherstruktur sequenzen: in einem Ordner? Im Project zu groß?
+- was danach als todo?
+	- was genauer aufbau?
 # Arbeitszeit
 
 - 28.04. -- 9:30 - 12:00, 13:00 - 17:30
@@ -81,6 +87,12 @@ In aktueller implementierung:
 	- gitlab + bericht + stundenzettel setup
 - 08.05. -- 10:00 - 11:45, 12:45 - 17:00
 	- velocities fertig, angefangen workflow dataset -> tensor, gedanken normalisierung: einfach/ genau? + umsetzung
+- 11.05. -- 11:00 - 12:00, 13:00 - 17:30, 20:00 - 22:00
+	- v.a. Visualisierung, Transformation und Normalisierung 
+	- Präsi für Jour Fixe
+- 12.05. -- 9:30 - 12:00, 13:00 - 14:30
+	- Jour Fixe
+	- sequenzen segmentieren, planung für Laden 
 # Quellen
 
  - anomaly detection with LSTM [Autoencoder]: https://dl.acm.org/doi/pdf/10.1145/3416013.3426457?__cf_chl_tk=fT.pJzxyMvxGBeRbMvMG2I0OT66WjWlLp3Vj0bSAoS0-1777448132-1.0.1.1-3lTNYQHoZ23JlIp0df1C4v3dCpy6JrRLT7ruQiDMbdI
