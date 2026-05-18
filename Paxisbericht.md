@@ -61,6 +61,7 @@ In aktueller implementierung:
 - Speicherstruktur sequenzen: in einem Ordner? Im Project zu groß?
 - was danach als todo?
 	- was genauer aufbau?
+- als Loss: Joint Positions von Digit und normalisiertem Mensch vergleichen (außer Knie)?
 # Arbeitszeit
 
 - 28.04. -- 9:30 - 12:00, 13:00 - 17:30
@@ -93,6 +94,13 @@ In aktueller implementierung:
 - 12.05. -- 9:30 - 12:00, 13:00 - 14:30
 	- Jour Fixe
 	- sequenzen segmentieren, planung für Laden 
+- 13.05. -- 10:00 - 12:00, 14:00 - 18:00
+	- Laden aus einem Ordner -> Jax Tensor
+	- Todo's mit Manuel abgesprochen (weitere Notwendigkeiten für Tensor)
+- 18.05. -- 11:45 - 14:45, 15:30 - 17:30
+	- zwischen strike und off stance swechsel gesetzt (für col StanceFoot und GaitPhase)
+	- Anfang vor erstem event gelöscht
+	- normierte zeit col (0 = RightStance, 0,5 = LeftStance, 1/0 = RightStance)
 # Quellen
 
  - anomaly detection with LSTM [Autoencoder]: https://dl.acm.org/doi/pdf/10.1145/3416013.3426457?__cf_chl_tk=fT.pJzxyMvxGBeRbMvMG2I0OT66WjWlLp3Vj0bSAoS0-1777448132-1.0.1.1-3lTNYQHoZ23JlIp0df1C4v3dCpy6JrRLT7ruQiDMbdI
