@@ -101,6 +101,13 @@ In aktueller implementierung:
 	- zwischen strike und off stance swechsel gesetzt (für col StanceFoot und GaitPhase)
 	- Anfang vor erstem event gelöscht
 	- normierte zeit col (0 = RightStance, 0,5 = LeftStance, 1/0 = RightStance)
+- 19.05. -- 10:45 - 12:00, 12:30 - 17:00
+	- transformation in stance foot angefangen
+		- fehler generell bei transformation aufgefallen: Winkel sind lokal und müssen nicht transformiert werden -> fehlende Orientierung
+			- für Pelvis transformation nicht relevant, da da nur normiert wird
+			- für stance foot transformation muss orientierung auch transformiert werden
+				- dafür aus markern rotationsmatrix bauen (Trello)
+	- in Plot stance foot und norm time eingebaut
 # Quellen
 
  - anomaly detection with LSTM [Autoencoder]: https://dl.acm.org/doi/pdf/10.1145/3416013.3426457?__cf_chl_tk=fT.pJzxyMvxGBeRbMvMG2I0OT66WjWlLp3Vj0bSAoS0-1777448132-1.0.1.1-3lTNYQHoZ23JlIp0df1C4v3dCpy6JrRLT7ruQiDMbdI
