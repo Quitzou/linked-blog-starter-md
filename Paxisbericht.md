@@ -58,9 +58,6 @@ In aktueller implementierung:
 
 # Fragen Manuel
 
-- Speicherstruktur sequenzen: in einem Ordner? Im Project zu groß?
-- was danach als todo?
-	- was genauer aufbau?
 - als Loss: Joint Positions von Digit und normalisiertem Mensch vergleichen (außer Knie)?
 # Arbeitszeit
 
@@ -111,6 +108,16 @@ In aktueller implementierung:
 - 20.05. -- 10:30 - 12:00 -- 13:00 - 17:30
 	- beim rotieren um neues foot coordinate system: chaos in z richtung, nach z Ausrichtung nach Labor z -> rotation quasi keine auswirkung, nur richtung nicht mehr gespiegelt bei manchen Aufnahmen, dann aber besser gespiegelte finden, und dann -x und -y 
 	- matplotlib kennen lernen und erweiterbaren gait phase plot
+- 21.05. -- 10:15 - 12:30 -- 13:30 - 15:00 -- 15:30 - 17:30
+	- zuerst Laufphasen implementiert
+	- dann mit Manuel neue Aufgaben geklärt
+	- dann Gedanken zu Fuß an Digit anpassen
+		- könnte zwei Marker für Fuß nehmen, dann lowest z als z und Knie Position in Plane neu berechnen
+	- für Jour Fixe:
+		- am Anfang über neue Implementationen reden
+		- neuen Plot zeigen?
+		- am Ende Gedanken zu Fuß neu mappen darstellen
+	
 # Quellen
 
  - anomaly detection with LSTM [Autoencoder]: https://dl.acm.org/doi/pdf/10.1145/3416013.3426457?__cf_chl_tk=fT.pJzxyMvxGBeRbMvMG2I0OT66WjWlLp3Vj0bSAoS0-1777448132-1.0.1.1-3lTNYQHoZ23JlIp0df1C4v3dCpy6JrRLT7ruQiDMbdI
