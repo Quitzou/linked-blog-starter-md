@@ -29,6 +29,11 @@ foot contacts = welcher fuß hat bodenkontakt
 # Poetry
 
 - Pakete herunterladen: poetry add pandas
+
+# Fragen
+
+- robot model description als vergleich
+- weiter an csv reader/ writer? 
 # Arbeitszeit
 
 - 28.04. -- 9:30 - 12:00, 13:00 - 17:30
