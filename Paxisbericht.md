@@ -56,9 +56,16 @@ In aktueller implementierung:
 
 - Pakete herunterladen: poetry add pandas
 
+<<<<<<< HEAD
+# Fragen
+
+- robot model description als vergleich
+- weiter an csv reader/ writer? 
+=======
 # Fragen Manuel
 
 - als Loss: Joint Positions von Digit und normalisiertem Mensch vergleichen (außer Knie)?
+>>>>>>> origin/main
 # Arbeitszeit
 
 - 28.04. -- 9:30 - 12:00, 13:00 - 17:30
