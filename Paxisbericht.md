@@ -108,7 +108,7 @@ In aktueller implementierung:
 - 20.05. -- 10:30 - 12:00 -- 13:00 - 17:30
 	- beim rotieren um neues foot coordinate system: chaos in z richtung, nach z Ausrichtung nach Labor z -> rotation quasi keine auswirkung, nur richtung nicht mehr gespiegelt bei manchen Aufnahmen, dann aber besser gespiegelte finden, und dann -x und -y 
 	- matplotlib kennen lernen und erweiterbaren gait phase plot
-- 21.05. -- 10:15 - 12:30 -- 13:30 - 15:00 -- 15:30 - 17:30
+- 22.05. -- 10:15 - 12:30 -- 13:30 - 15:00 -- 15:30 - 17:30
 	- zuerst Laufphasen implementiert
 	- dann mit Manuel neue Aufgaben geklärt
 	- dann Gedanken zu Fuß an Digit anpassen
@@ -117,6 +117,11 @@ In aktueller implementierung:
 		- am Anfang über neue Implementationen reden
 		- neuen Plot zeigen?
 		- am Ende Gedanken zu Fuß neu mappen darstellen
+- 25.05. -- 16:00 - 18:00
+	- Jour Fixe Vorbereitung
+- 26.05. -- 9:45 - 12:00 -- 13:00 - 17:30
+	- Jour Fixe
+	- JAX verstehen, NN zur mnist erkennung bauen
 	
 # Quellen
 
