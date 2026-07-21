@@ -270,7 +270,7 @@ In aktueller implementierung:
 			- ![[Screenshot From 2026-07-02 15-15-19.png|109]]![[Screenshot From 2026-07-02 15-17-14.png|89]]
 	- Test mit 8 statt 3 Probanten, loss bleibt stabil, allerdings habe ich memory probleme, muss noch weiter untersucht werden, evtl mit split vom tensor und auf festplatte speichern und nacheinander laden
 	- *müsste auch nochmal den foot loss anders machen ggf mit cos sim*
-- 06.07 -- 12:30 - 13:45 -- 14:30 - 18:45
+- 06.07 -- 12:30 - 13:45 -- 14:30 - 18:45 -- 23:00 - 23:45
 	- plots grid und größere Schriftart
 	- foot contacts anzeigen
 	- mit unterschiedlichen losses getestet (v.a. statt sum mean, statt m mm)
@@ -279,6 +279,86 @@ In aktueller implementierung:
 	- beine verlängert von nature human
 	- test mit gewichteten fehlern (elbow und foot weniger gewichtet)
 		- klappt ganz gut
+	- JourFixe präsi
+- 07.07. -- 9:40 - 12:15 -- 13:30 - 17:00
+	- JourFixe
+	- tests mit alter Schulter:
+		- bei einem Sample waren Schulter und Hüfte etwas eingedreht
+		- muss Ausrichtung nochmal angepasst werden??
+		- Schulter normalerweise teils leicht vor digit schulter
+	- Stride = Frames gesetzt, dafür doppelte probanten, nur minimal schlechterer loss von 7e-5 zu 9e-5
+	- andere paddings getestet: mit symmetric definitiv weniger wackeln
+		- jetzt linear fortgeführt, deutlich besser, loss auch wieder bei 8e-5
+	- Fuß ist bei bodenkontakt nicht gleichmäßig, durchschwingender fuß würde Boden berühren
+		 ![[Screenshot From 2026-07-07 16-48-49.png|308]]
+	- bei extremen "Armschwingern" teils sehr knapp mit Armen am Körper, habe aber noch kein retargeting mit Kontakt gesehen
+		- ![[Screenshot From 2026-07-07 16-47-55.png|312]]
+	- viewer beim vergrößern sehr laggy, ui geht aus dem bild und extrem wenig frames
+- 08.07. -- 13:00 - 18:20
+	- Loss Plot auf log scale umgestellt
+		- darin zu erkennen in config mit 100 frames, 100 stride -> 425\*32 sequenzen:
+			- ein trainingsbatch ausreißer:
+				- ![[Pasted image 20260708134924.png|533]]
+	- Aufgabe: erkennbar machen, welche sequenz zu welcher Aufnahme gehört
+		- + test probanten unabhängig
+		- daraus auslesen, wer schwerster probant ist, sowie anzeigen, welcher gerade geplottet wird
+		- Erkenntnis aus den schlechtesten 10: in den meisten schlechten Sequenzen, wurde die Hand an den Kopf genommen (vermutlich in die Haare):
+		- ![[Pasted image 20260708175151.png|225]]
+		- eine war allerdings sehr komisch und braucht nähere betrachtung im preprocess, Arme waren im Körper, im video ist aber nichts verdächtiges zu sehen:
+			- HN021/Session2/Overground_Walk/Walk_Fast/Post_Process/Walk_Fast3.csv
+			- Arme scheinen vertauscht zu sein, im csv sind RFJC(x) > LFJC(x), aber RHANDO(x) < LHANDO(x)
+			- am nächsten Tag ohne Human > Digit shoulder mapping ist es klar, Arme falsch gelabelt:![[Screenshot From 2026-07-09 11-48-03.png|145]]
+- 09.07. -- 11:20 - 13:00 -- 13:45 - 17:15
+	- Idee: echte Frames als Padding nehmen: Problem bei zweiter und folgenden Schichten im Netz
+		- test mit nur bei erster layer: Padding entfernt, als input 2 frames mehr
+	- Evaluation zu Ausreißern, Loss nach ln und slow/ fast training:
+		- ![[Pasted image 20260709140526.png|230]] ![[Pasted image 20260709124006.png|234]]
+		- 3\*IQR scheint gute Grenze zu sein
+		- beim anschauen von grenznahen sequenzen fällt bei fast train folgende aufnahme auf: dataset/nature/Data_Run_Walk/HN021/Session2/Overground_Walk/Walk_Fast/Post_Process/Walk_Fast6.csv
+			- Arme sind ungewöhnlich weit hinten, ist das Problem vom preprocess?
+				- Antwort: Armbewegung von Probant bei walk fast ungewöhnlich weit hinten/ bei treadmill schneller schwung kurz vor körper + leichte neigung Oberkörper verstärkt effekt nach preprocess
+					- von 9/10 sequenzen aus 2. max solche 
+				- nach test ohne HN021 mit slow/ fast train:
+				- ![[Pasted image 20260709154923.png|252]]![[Pasted image 20260709160018.png|252]]
+	- Idee: als nächstes sequenzen über grenze raus, dann Batches neu erstellen und trainieren
+		- auch noch mehr statistiken printen, wie % über grenze
+		- sowie sequenzen um grenze o.ä. plotten
+			- fertig
+	- Problem: bei schnellen Gehbewegungen teils Oberkörper nach vorne gelehnt!
+		- Idee: Oberkörper lehnen trainieren?? kann der z.B. Pelvis angle angepasst und trainiert werden??
+	- Frage: Lieber wegfiltern oder neu machen?
+	- Test: Schultern nur x und z pos setzen 
+- 10.07. -- 13:00 - 15:00 -- 15:30 - 17:30
+	- komischer bug, zweiter Frame jump der hand und elbow:
+		- ![[Pasted image 20260710131327.png|369]]
+		- war ein array aufruf fehler
+	- alle plots in utils überführt + universell gemacht + schöner mit etwas mehr infos
+- 15.07. -- 11:45 - 12:15 -- 13:15 - 16:15
+	- model kann jetzt gespeichert und geladen werden
+	- Test mit Pretraining: TRAIN VS TEST
+		- ![[Pasted image 20260715143850.png|273]]![[Pasted image 20260715143914.png|274]]
+		- ![[Pasted image 20260715144131.png|548]]
+	- Test ohne Pretraining: TRAIN VS TEST
+		- ![[Pasted image 20260715144511.png|279]]![[Pasted image 20260715144541.png|282]]
+	- neues Projekt: apg learning mit imitation learning:https://github.com/google-deepmind/mujoco/blob/main/mjx/training_apg.ipynb
+		- erste Infos:
+			- Unterschied Zeroth-Order Policy Gradients (ZoPG) vs First-Order Policy Gradients (FoPG)
+				- ZoPG: berechnet direkten gradient der simulations funktion f
+					- algorithms: Proximal Policy Optimization (PPO)
+				- FoPG: berechnet gradienten mit der Jakobi von f
+					- algorithms: Analytical Policy Gradients (APG), Backpropagation through Time (BPTT)
+- 16.07. -- 11:45 - 13:00 -- 14:15 - 16:00
+	- RL übersicht erstellt: [[Reinforcement Learning]]
+- 17.07. -- 11:40 - 12:45 -- 13:30 - 17:15
+	- erste basics von gymnasium eingelesen
+	- schreibe kleines RL projekt
+		- fehlt noch optimierung der lernfunktion
+- 20.07. -- 11:15 - 
+	- Ist es möglich das Netz so trainiert zu lassen, und als reference kinematic eine gate phase von bestem mapping zu nehmen, die dann periodisch zu einem Laufen wird?
+		- Idee: das als reference tracking für RL nehmen
+			- Notes: 
+	- unterschiedlicher reward: hand/ elbow reference-tracking, fuß direction tracking? und Auflagefläche bei contact = 0, sonst spline bis max pos
+	- Kleines RL Beispiel: actions: nach oben/ unten bewegen, observation: y pos, target sine wave folgen
 
 # Quellen
 
