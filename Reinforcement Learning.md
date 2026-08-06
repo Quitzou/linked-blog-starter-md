@@ -65,7 +65,91 @@ goal of agent is to maximize cumulative reward over trajectory. There are differ
 ### Other Notes:
 
 - The key insight is that `reward` tells us how good our _immediate_ action was, but the agent needs to learn about _long-term_ consequences. Q-learning handles this by estimating the total future reward, not just the immediate reward.
+
+# David Silver - RL Course
+
+## Reward
+
+Reward Hypothesis:
+"All goals can be described by the maximization of expected cumulative reward."
+- can only be at end (e.g. win/loose)
+
+## Observability
+
+Full observability:
+$$O_{t}=S^a_{t}=S^e_{t}$$
+- _Markov decision process_ = MDP
+
+Partial observability:
+agent state != environment state
+- _partially observable Markov decision process_ = POMDP
+- agent must construct its own state representation $S^a_t$ 
+	- complete history: $S^a_t=H_t$
+	- _Beliefs_ of environment state: $S^a_t=(\mathbb{P}[S^e_t=s^1],\ldots,\mathbb{P}[S^e_t=s^n])$ 
+	- RNN
+
+## Value Function
+
+- prediction of future reward
+- used to evaluate goodness/ badness of states 
+- and select between actions $$v_{\pi}(s)=\mathbb{E}_{\pi}[R_{t}+\gamma R_{t+1}+\gamma^2R_{t+2}+\ldots|S_{t}=s]$$
+
+## Model
+
+- model predicts what environment will do next
+- _Transitions_: $\mathcal{P}$ predicts the next state
+- _Rewards_: $\mathcal{R}$ predicts the next (immediate) reward
+$$\mathcal{P}^a_{ss'}=\mathbb{P}[S'=s'|S=s,A=a]$$
+$$\mathcal{R}^a_{s}=\mathbb{E}[R|S=s,A=a]$$
+- models are not necessary
+
+## Categorizing RL agents
+
+- value based
+	- No Policy (implicit)
+	- Value Function
+- policy based
+	- policy
+	- no value function
+- actor critic
+	- policy
+	- value function
+
+- Model Free
+	- Policy and/or Value Function
+	- no model
+- Model based
+	- policy and/or value function
+	- model
+
+## Learning and Planning
+
+- Reinforcement Learning:
+	- environment is initially unknown
+	- agent interacts -> improves policy
+- Planning:
+	- model of environment is known
+	- agent performs computations with its model
+		- agent improves policy
+
+## Return
+
+return $G_{t}$ is total discounted reward from time-step t
+$$G_{t}=R_{t+1}+\gamma R_{t+2}+\ldots=\sum^\infty_{k=0}\gamma^kR_{t+k+1}$$
+
+## Markov Reward Processes
+
+Bellman Equation for MRPs: $$v(s)=\mathbb{E}[R_{t+1}+\gamma v(S_{t+1})|S_{t}=s]$$
+
+## Markov Decision Processes
+
+**Value Function**
+ - *state-value function* $v_\pi(s)$ of MDP is expected return starting from state s, and then following policy $\pi$  $$v_{\pi}=\mathbb{E}_{\pi}[G_{t}|S_{t}=s]$$
+ - *action-value function* $q_\pi(s,a)$ is expected return starting state s, taking action a, and then following policy $\pi$ 
+ $$q_{\pi}(s,a)=\mathbb{E}_{\pi}[G_{t}|S_{t}=s,A_{t}=a]$$
+
 ### Sources
 
 - https://spinningup.openai.com/en/latest/spinningup/rl_intro.html
 - https://gymnasium.farama.org/introduction/train_agent/
+- David Silver: https://www.youtube.com/watch?v=2pWv7GOvuf0

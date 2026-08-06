@@ -24,6 +24,7 @@ foot contacts = welcher fuß hat bodenkontakt
 - xyz von jedem Punkt; hip, knee, ankle: deg, force, moment, power
 - Metadaten in metadata.xlsx (Längen, distanzen ...)
 - https://springernature.figshare.com/articles/dataset/3D_motion_analysis_dataset_of_healthy_young_adult_volunteers_walking_and_running_on_overground_and_treadmill/25592865/1?file=45621447
+- https://help.vicon.com/download/attachments/11378719/Plug-in%20Gait%20Reference%20Guide.pdf
 - Daten lesen: df = pd.read_csv('tests/test.csv', skiprows=13, nrows=792)
 - gibt auch Joint positions?
 - Normalisieren mit teilen durch Körpergröße?
@@ -353,12 +354,131 @@ In aktueller implementierung:
 	- erste basics von gymnasium eingelesen
 	- schreibe kleines RL projekt
 		- fehlt noch optimierung der lernfunktion
-- 20.07. -- 11:15 - 
+- 20.07. -- 11:15 - 12:15 -- 13:10 - 16:00 -- 17:30 - 18:00
 	- Ist es möglich das Netz so trainiert zu lassen, und als reference kinematic eine gate phase von bestem mapping zu nehmen, die dann periodisch zu einem Laufen wird?
 		- Idee: das als reference tracking für RL nehmen
 			- Notes: 
 	- unterschiedlicher reward: hand/ elbow reference-tracking, fuß direction tracking? und Auflagefläche bei contact = 0, sonst spline bis max pos
 	- Kleines RL Beispiel: actions: nach oben/ unten bewegen, observation: y pos, target sine wave folgen
+- 21.07. -- 10:15 - 12:15 -- 13:15 - 16:10
+	- Jour Fixe + Überlegungen für zukunft
+- 22.07. -- 11:15 - 13:00 -- 13:45 - 17:20
+	- angefangen Szene für Digit + gravity
+		- brauche gelenkwinkel als trajektorie
+		- erstmal als hack: einen menschlichen raussuchen, diesen retargeten und als trajektorie abspeichern (Motorwinkel und Joint Pos)
+			- potentielle:
+			- legs spread: dataset/nature/Data_Run_Walk/RC023/Session2/Treadmill_Walk/Treadmill_Walk_Fast/Post_Process/Treadmill_Walk_Fast.csv
+			- comft: dataset/nature/Data_Run_Walk/MR015/Session2/Treadmill_Walk/Treadmill_Walk_Comfortable/Post_Process/Treadmill_Walk_Comfortable.csv
+			- spread: dataset/nature/Data_Run_Walk/LL011/Session2/Treadmill_Walk/Treadmill_Walk_Fast/Post_Process/Treadmill_Walk_Fast.csv
+	- anderen start wählen, um beine zusammen zu haben (zwischen off und strike)
+		- mit anderem net: Number 6990: dataset/nature/Data_Run_Walk/MR015/Session1/Overground_Walk/Walk_Comfortable/Post_Process/Walk_Comfortable4.csv
+	- Funktion um trajektorie zu extrahieren:
+		- motor_seq -> sitepos + siteids -> save
+	- speichern und laden einer trajetktorie (motorwinkel, Joint Pos)
+- 23.07. -- 10:40 - 12:40 -- 13:30 - 17:20
+	- forward step -> viewer
+	- frequenz viewer: -- frequenz trajektorie: 100Hz
+	- zum testen regelkreis: target angle - cur angle \* kp + d(target angle - cur angle) \* kd
+		- bein scheint falsch zu sein (seitliches schwingen) -> lag an gear ratio -> damit skaliert hat funktioniert
+	- als nächstes kleines netz trainieren: frame als input -> mj_data.ctrl als output
+	- Idee: wenn aktion laufen, dann schauen welcher frame am nächsten, und von dem an laufbewegung machen
+	- Anfang fertig: RL_training:
+		- zu trajektorie loss berechnen (angles)
+		- trajektorie + Roboter plotten
+		- fehlt: lernen fertig machen
+- 24.07. -- 11:40 - 13:30 -- 14:15 - 16:20
+	- training funktioniert nicht sinnvoll, ein step dauert extrem lang: 100 frames \* 20 substeps 
+		- und nur miniminimale verbesserung (eher random)
+	- andere idee: winkel auf vorigen frame setzen, und dann einen step trainieren
+		- oder besser: winkel um gewollten winkel setzen und dann trainieren
+		- mit training von gesampelten einzelnen frames: ![[Pasted image 20260724162000.png|212]]
+			- loss pendelt von anfang an um 0.24
+	- ergebnis: training läuft durch, es wird aber noch nichts trainiert
+- 28.07. -- 11:10 - 12:15 -- 13:00 - 17:00
+	- Problem war unter anderem, dass gelenkwinkel nicht gesetzt wurden
+		- allerdings nicht so einfach, da ich die gekoppelten gelenke nicht herleite, könnte fehleranfällig sein, diese herzuleiten
+		- wird so nicht funktionieren, nach vielen implements immer noch komplett instabil
+			- also ohne setzen von pos, sondern von startpos aus trainieren und ganze bewegung trainieren
+	- neuer ansatz: ein step in train ist ein target+ ein ctrl -> 20 step sims
+		- ausgangspunkt ist startzustand für nächsten step
+		- parallelisierte trajektorien (starten unterschiedlich)
+		- funktioniert insgesamt zumindest im ansatz
+			- ![[Pasted image 20260728164727.png|302]]![[Pasted image 20260728164806.png|173]]
+- 29.07. -- 11:45 - 13:00 -- 13:30 - 17:00
+	- observation space: no ground contact: joint angle(20), joint vel(20), last act(20),
+		- ground contact: + IMU
+	- target: joint angle(20), 
+	- selber rumprobieren an vereinfachtem problem war nicht zielführend
+	- Code generiert zu richtigem training basieren auf trajektorie und model
+		- muss noch reviewed und getestet werden
+			- auf ersten blick scheint reward sich zu erhöhen
+		- weitere tests mit video sehen gut aus: nach 10_000_000 steps(45 min):
+			- ![[video_14_0010.32M.mp4]]
+			- nächste wichtige änderungen: bessere Trajektorie nutzen:
+				- dafür sequenzen auf eine gate phase bringen und mittlere trainingssequenz als referenz nutzen
+				- außerdem fußtracking besser machen (richtige orientierung + fuß flach?)
+- 30.07. -- 11:10 - 13:00 -- 13:40 - 17:10
+	- notes zu next steps: 
+		- preprocess auf gait phase umstellen
+			- mittlere gait länge als num_steps wählen, andere dahin interpolieren
+			- retargeting -> mittlerer retargeting loss als referenztrajektorie
+		- Als test: Fuß-Winkel nicht in RL training
+		- preprocess foot loss neu
+			- alte idee von menschfuß immer flach auf boden?
+		- training besser?
+			- ja -> residual training mit rauschen
+				- besser? -> störungen
+		- Später: Training mit unterschiedlichen actions als input?
+			- dadurch ändert sich ziel, z.b. körperachse mit vel phi drehen und cos(phi) vel nach vorne --> unterschiedlich geschwindigkeit mit aktuellem ansatz nicht möglich (evtl trainierbar nach training und ohne trajektorie bzw walk slow)
+	- Analyse Framenumber von Gait Cycle (slow, comf und fast):
+	- ![[Pasted image 20260730150743.png|311]]
+	- und aufgeteilt: Fast -- Comf -- Slow
+	- ![[Pasted image 20260730150932.png|208]]![[Pasted image 20260730151105.png|208]]![[Pasted image 20260730151149.png|209]]
+	- es entstehen sehr eindeutige peaks, die als zentrum von ausgewählten sequenzen dienen könnten. damit können trainingsdaten für unterschiedliche geschwindigkeiten gesammelt werden (Schrittweite kann noch variieren, sollte im mittel aber den frequenzen entsprechend sein)
+	- für erste tests sollte der peak bei 109 oder 120 sinnvoll sein
+		- was sind dann sinnvolle bereiche?
+		- allererster test nur welche von der genauen framenumber?
+			- code dafür noch nicht überprüft
+- 04.08. -- 9:50 - 12:15 -- 13:15 - 16:50
+	- fußproblem ist vorallem, im retargeting wird toe-a und toe-b gesetzt, allerdings haben die keinen einfluss nach forward auf wahre fußposition
+		- nach ergänzung fällt auf, dass fuß/ bein unterbestimmt sind im retargeting:
+		- ![[Pasted image 20260804112930.png|122]]
+		- loss erweitert auf foot_roll = 0, dadurch wieder gut:
+		- ![[Pasted image 20260804121610.png|145]]
+	- [ ] Becken Rotation rausrechnen (im retargeting)
+		- tests mit FAST -- COMF -- SLOW mit smoke (2M Steps)
+			- FAST mit ca 1.3 m/s scheint zu schnell, SLOW mit 0.8 m/s zu langsam, rund 1 m/s besser
+			- aber becken rotation scheint zu fehlen für vorwärtsmoment
+				- extremste tilts im vergleich ohne tilt-rot: 2.4° (DA013) zu 14.5° (GF022)
+		- ![[training.png|263]]![[training 1.png|263]]
+			- im smoke test sieht man keinen Unterschied, das heißt, gelenke haben wenig mit körperneigung zu tun, in diesem beispiel eher unterschiedliche körperproportionen
+	- [x] gelenkgrenzen in netz einbauen (tanh * jnt_range)
+	- [x] beinlängen neu berechnen
+		- nicht geändert, passt aber fürs erste
+	- [x] erweiterter foot loss
+		- foot-roll als target auf 0 gesetzt
+	- [ ] fuß loss neu im retargeting (flach setzen?)
+		- gerne ferse+flach(z von ferse und toe auf min(ferse, toe))
+	- [ ] gespeicherte trajektorie anzeigen
+
+	- Probant HN021 hat auffälligkeiten in torsowinkel über die 2 sessions: 7.2° vs. 12.3°  (5.1°) wahrscheinlich unterschiedliche markerpositionen, bei allen anderen probanten konsistent (0.88° streuung)
+		- HN021 aus datensatz raus (war schon länger auffällig)
+- 05.08. -- 10:00 - 12:00 - 12:45 - 16:45
+	- 10M trainingstest mit 1m/s trajectory (median of 120 frames gait cycles)
+		- ![[training 2.png|278]]
+		- episodenlänge ausgeschöpft, training geht in plateau, allerdings auch am ende noch beim laufen einen linksdrift -> in reward?
+	- Code mit [Schaubild](https://claude.ai/code/artifact/a8520cfc-1d42-48bc-8b00-8beadbce85b4) verstehen
+	- Paper zu DeepMimic angefangen zu lesen, sowie eigene [übersicht](Git/DeepMimic) mit Fragen angefangen (bis Multi-Skill Integration)
+- 06.08. -- 10:30 - 12:15 -- 13:15 - 17:40
+	- Tipps von Manuel:
+		- center of mass anschauen
+		- passive füße dregler
+		- Lectures:  
+			- David Silver: https://www.youtube.com/watch?v=2pWv7GOvuf0
+			- DeepMind: https://www.youtube.com/watch?v=TCCjZe0y4Qc
+			- PPO Pseudocode: https://spinningup.openai.com/en/latest/algorithms/ppo.html
+			- PPO: https://openai.com/index/openai-baselines-ppo/
+	- erste zwei videos von David Silver geschaut + notes in [[Reinforcement Learning]] gemacht
 
 # Quellen
 
