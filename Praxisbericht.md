@@ -479,6 +479,8 @@ In aktueller implementierung:
 			- PPO Pseudocode: https://spinningup.openai.com/en/latest/algorithms/ppo.html
 			- PPO: https://openai.com/index/openai-baselines-ppo/
 	- erste zwei videos von David Silver geschaut + notes in [[Reinforcement Learning]] gemacht
+- 07.08. -- 11:30 - 13:15 -- 14:15 - 
+	- we iter videos von David Silver geschaut
 
 # Quellen
 

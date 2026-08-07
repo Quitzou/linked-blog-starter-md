@@ -145,8 +145,25 @@ Bellman Equation for MRPs: $$v(s)=\mathbb{E}[R_{t+1}+\gamma v(S_{t+1})|S_{t}=s]$
 
 **Value Function**
  - *state-value function* $v_\pi(s)$ of MDP is expected return starting from state s, and then following policy $\pi$  $$v_{\pi}=\mathbb{E}_{\pi}[G_{t}|S_{t}=s]$$
- - *action-value function* $q_\pi(s,a)$ is expected return starting state s, taking action a, and then following policy $\pi$ 
- $$q_{\pi}(s,a)=\mathbb{E}_{\pi}[G_{t}|S_{t}=s,A_{t}=a]$$
+ - *action-value function* $q_\pi(s,a)$ is expected return starting state s, taking action a, and then following policy $\pi$ $$q_{\pi}(s,a)=\mathbb{E}_{\pi}[G_{t}|S_{t}=s,A_{t}=a]$$
+
+### Incremental Mean
+
+$$\mu_k=\mu_{k-1}+\frac{1}{k}(x_k-\mu_{k-1})$$
+
+## Sample Updates
+
+Monte-Carlo (MC):
+- update value function with full sample return
+
+Temporal-Difference (TD(n)):
+- update value function with direct reward(s) and value function of n+1 next state
+
+$TD(\lambda)$: 
+- the lambda-return $G^\lambda_t$ combines all n-step returns $G^{(n)}_t$ with weights $(1-\lambda)\lambda^{n-1}$ 
+$$G^\lambda_t=(1-\lambda)\sum^\infty_{n=1}\lambda^{n-1}G^{(n)}_t$$
+$$V(S_t)\leftarrow V(S_t)+\alpha(G^\lambda_t-V(S_t))$$
+- Can have forward or backward view
 
 ### Sources
 
