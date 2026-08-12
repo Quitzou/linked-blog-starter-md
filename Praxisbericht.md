@@ -483,7 +483,7 @@ In aktueller implementierung:
 	- weiter videos von David Silver geschaut
 - 11.08. -- 10:30 - 12:30 -- 13:00 - 17:15
 	-  video 5 und 6 bis 1:23
-- 12.08. -- 10:30 - 12:30 -- 13:00 - 
+- 12.08. -- 10:30 - 12:30 -- 13:00 - 17:20
 	- video 6 und 7
 	- blackjack training gymnasium 
 	- angefangen cartpole
