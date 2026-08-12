@@ -479,8 +479,14 @@ In aktueller implementierung:
 			- PPO Pseudocode: https://spinningup.openai.com/en/latest/algorithms/ppo.html
 			- PPO: https://openai.com/index/openai-baselines-ppo/
 	- erste zwei videos von David Silver geschaut + notes in [[Reinforcement Learning]] gemacht
-- 07.08. -- 11:30 - 13:15 -- 14:15 - 
-	- we iter videos von David Silver geschaut
+- 07.08. -- 11:30 - 13:15 -- 14:15 - 17:00
+	- weiter videos von David Silver geschaut
+- 11.08. -- 10:30 - 12:30 -- 13:00 - 17:15
+	-  video 5 und 6 bis 1:23
+- 12.08. -- 10:30 - 12:30 -- 13:00 - 
+	- video 6 und 7
+	- blackjack training gymnasium 
+	- angefangen cartpole
 
 # Quellen
 

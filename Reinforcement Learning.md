@@ -165,6 +165,19 @@ $$G^\lambda_t=(1-\lambda)\sum^\infty_{n=1}\lambda^{n-1}G^{(n)}_t$$
 $$V(S_t)\leftarrow V(S_t)+\alpha(G^\lambda_t-V(S_t))$$
 - Can have forward or backward view
 
+## Sarsa algorithm
+
+Sarsa is a model free, on policy,  $\epsilon-greedy$ learning algorithm that converges to $\pi_{*}$. (uses Q instead of V) 
+- Sarsa($\lambda$) has like TD($\lambda$) *eligibility traces* for a backward view online learning
+	- it has one eligibility trace for each state-action pair $$E_{0}(s,a)=0$$ $$E_{t}(s,a)=\gamma\lambda E_{t-1}(s,a)+1(S_{t}=s,A_{t}=a)$$
+
+## Q-Learning
+
+- model free, off policy learning of action-values $Q(s,a)$
+- next action is chosen using behavior policy $A_{t+1}\sim\mu(\cdot|S_t)$ 
+- but we consider alternative successor action $A'\sim\pi(\cdot|S_t)$
+- and update $Q(S_t,A_t)$ towards value of alternative action $$Q(S_{t},A_{t})\leftarrow Q(S_{t},A_{t})+\alpha(\textcolor{red}{R_{t+1}+\gamma Q(S_{t+1},A')}-Q(S_{t}A_{t}))$$
+
 ### Sources
 
 - https://spinningup.openai.com/en/latest/spinningup/rl_intro.html
