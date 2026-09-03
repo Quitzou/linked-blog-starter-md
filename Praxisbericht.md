@@ -487,6 +487,62 @@ In aktueller implementierung:
 	- video 6 und 7
 	- blackjack training gymnasium 
 	- angefangen cartpole
+- 13.08. -- 11:00 - 12:30 -- 13:15 - 18:15
+	- weiter cartpole -> auf jax, läuft aber trainiert nicht
+- 14.08. -- 10:45 - 12:00 -- 12:45 - 17:30
+	- im buch policy gradient methoden nachlesen für cartpole
+		- fehler im code gefunden, obs nach step abgespeichert
+	- Fragen:
+		- sum vor oder nach gradient ist egal, und wird immer über die steps summiert?
+		- im update schritt mit batches dann nochmal über batches den mean
+- 18.08. -- 12:20 - 16:20
+	- Actor Critic im Buch lesen
+		- auf cartpole angewendet, lernt scnell, vergisst dann aber auch wieder und lernt neu (mit TD(0) gelernt)
+	- angefangen TRPO lesen
+- 19.08. -- 11:15 - 12:00 -- 12:30 - 17:30
+	- trpo durchgelesen, nicht ganz verstanden 
+	- zu ppo video scheint einfacher zu verstehen zu sein, trpo brauche ich eigentlich auch nicht
+	- ppo ist updates zu probs werden gecapped? um zu verhindern zu schnell in minimas zu landen?
+- 20.08. -- 11:30 - 14:00 -- 14:30 - 17:00
+	- PPO algorithmus weiter angeschaut + vergleich zu apg
+		- apg könnte probleme machen bei lauftraining wegen digit model, constraints im bein nicht leicht zu backproppen
+- 25.08. -- 11:10 - 12:30 -- 13:00 - 17:00
+	- weiter code durchschauen, angefangen dokument dazu zu schreiben, sowie selber locomotion class zu schreiben
+- 26.08. -- 11:00 - 12:00 -- 12:30 - 17:30
+	- im code motoren für fuß nur d regeln und aus reward, 
+	- aufgefallen: gap zwischen simulation und videos
+- 27.08. -- 12:00 - 16:00
+	- homeoffice: 
+		- programmsetup auf laptop zu hause
+		- überlegungen für jour fixe
+- 31.08. -- 11:00 - 12:15 -- 12:45 - 18:00
+	- code kürzen
+	- bug von video zu sim: in brax ppo.train ist normalize_obs = True, in der sim wurden die Observations aber nicht normalized
+	- aktuell wird pd jeden sim timestep berechnet, evtl mal mit nur jeder ctrl oder ctrl auf sim freq?
+	- problem, ohne ansteuerung der füße bleiben diese im boden stecken
+		- evtl wenig p, viel d und retarget target von netz setzen, aber retargeting vom fuß nicht im loss
+	- als research: beyondMimic
+		- dafür diffusion modelle besser verstehen, kann besser generalisieren für multi task/ scalability?
+	- jour fixe präsi
+- 01.09. -- 9:45 - 12:00 
+	- Jour Fixe
+- 02.09. 14:00 - 17:00
+	- erste Notizen zu Berichteinteilung
+- 03.09. 11:00 - 12:00 -- 12:30 - 17:00
+	- aufräumen:
+		- reference traj is always named reference_trajectory.npz in dataset/numpy/
+		- digit_rig
+	- änderungen: 
+		- model und ref path
+		- fourier direkt in utils
+		- pos, vel und site in reference_trajectory
+		- save in savez
+		- alle reference motion anpassungen in utils, in reference nur noch als objekt laden
+			- muss noch getestet werden
+			- auf RL_training seite läuft es durch, aktuelle referenz scheint aber nicht die richtige zu sein
+			- reference motion berechnung in utils noch fehlerhaft, erster frame sieht richtig aus, dann evtl richtungsfehler? y statt x?
+	- noch offen:
+		- constants zusammenführen
 
 # Quellen
 

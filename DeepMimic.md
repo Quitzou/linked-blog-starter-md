@@ -78,5 +78,13 @@ each policy $\pi$ is represented by neural network
 	- without early termination, data in early stages of training is dominated by samples of character struggling on ground 
 		- network try's to adapt to those states
 
+## Tasks
+
+**Target Heading:**
+$$r_{t}^G=\exp[-2.5\max(0,v^*-v_{t}^Td_{t}^*)^2]$$
+- $v^*$ = desired speed along target direction $d_t^*$, $v_t$ is center-of-mass velocity 
+	- this can not learn turning of body???
+
+
 ## Multi-Skill Integration
 

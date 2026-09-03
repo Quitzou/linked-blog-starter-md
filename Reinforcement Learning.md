@@ -178,6 +178,31 @@ Sarsa is a model free, on policy,  $\epsilon-greedy$ learning algorithm that con
 - but we consider alternative successor action $A'\sim\pi(\cdot|S_t)$
 - and update $Q(S_t,A_t)$ towards value of alternative action $$Q(S_{t},A_{t})\leftarrow Q(S_{t},A_{t})+\alpha(\textcolor{red}{R_{t+1}+\gamma Q(S_{t+1},A')}-Q(S_{t}A_{t}))$$
 
+## A2C
+
+1. init
+2. for N number of episodes repeat step 3
+3. for each/ every n steps in episode:
+	1. select action using policy, $a_{t}\sim \pi_{\theta}(s_{t})$
+	2. take action $a_t$ in state $s_t$, observe reward $r$ and move to next state $s'_t$
+	3. compute policy gradients: $$\nabla_{\theta}J(\theta)=\nabla_{\theta}\log \pi_{\theta}(a_{t}|s_{t})(r+\gamma V_{\phi}(s'_{t})-V_{\phi}(s_{t}))$$
+	4. Update actor net parameter $\theta$ with gradient ascent (- in loss function) $$\theta=\theta+\alpha \nabla_{\theta}J(\theta)$$
+	5. compute loss of critic: $$J(\phi)=r+\gamma V_{\phi}(s'_{t})-V_{\phi}(s_{t})$$
+	6. compute gradients and update critic net parameter $\phi$ with gradient descent: $$\phi=\phi-\alpha \nabla_{\phi}J(\phi)$$
+
+## PPO
+
+1. init
+2. collect N numbers of traj $\{\tau^i\}^N_{i=1}$ following policy $\pi_\theta$ 
+3. compute return $R_{t}$
+4. compute gradient of objective function $\nabla_{\theta}L(\theta)$ with $$L(\theta)=\mathbb{E}_{t}[\min(r_{t}(\theta)A_{t},\text{clip}(r_{t}(\theta),1-\epsilon,1+\epsilon)A_{t})]$$
+5. update policy network params $\theta$ with $\theta=\theta+\alpha \nabla_{\theta}L(\theta)$
+6. compute MSE of value network: $$J(\phi)=\frac{1}{N}\sum^N_{i=1}\sum^{T-1}_{t=0}(R_{t}-V_{\phi}(s_{t}))^2$$
+7. update value network params $\phi$ with $\phi=\phi-\alpha \nabla_{\phi}J(\phi)$
+8. Repeat 2 to 7 for several iterations
+
+
+
 ### Sources
 
 - https://spinningup.openai.com/en/latest/spinningup/rl_intro.html
