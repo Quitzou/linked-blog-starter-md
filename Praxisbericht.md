@@ -565,6 +565,32 @@ In aktueller implementierung:
 		- notes: heel site könnte in digit fuß mitte verschoben werden
 		- RL test mit der neuen traj
 			- sieht besser asu, füße flach und bleibt nicht im boden stecken, aber knapp
+- 18.09. -- 11:30 - 13:00 -- 13:30 - 
+	- könnte noch reward für füße über boden geben
+		- tanh(k*(l-r) ²) 
+		- problem: kämpft gegen tracking reward
+		- eher im retargeting z von schwung etwas hoch skalieren
+	- ansonsten noch offen tests mit anderem terrain, rauschen, pushes, als target rotation als drehung, obstacles + heightmap, etc
+	- erstmal statt bei mid-swing zu starten, bei strike starten
+		- dadurch kein erfolg in unterschiedlichen höhen von l/r
+	- ich sollte es genauer untersuchen, was das problem vom unterschied linker und rechter fuß verursacht
+	- als anderer retargeting ansatz könnte einfach inverse kinematik sein, sollte alles vollbestimmt sein
+		- constraints arme: hand exakt, elbow so nah wie möglich
+		- constraints beine: fuß perfekt, kein roll im fuß, bein in ausrichtung von fuß?? oder bein möglichst gerade nach hinten
+			- nur idee für später: mocap körper auf digit maße fitten (v.a. schultern neu) und dann digit genau mit ik reinlegen
+	- und mehr mocap ins retargeting, vllt +-5 frames auf die framezahl interpolieren, nicht zu weit entfernt, weil sonst zu stark verzerrt
+	- erstmal plot_dataset_stats schreiben, um gut datensätze vergleichen zu können
+	- mean in interpolation von den retargeteten gaits ist schlecht, da linker strike quasi zweimal auftritt, da das event teils um einen frame verschoben ist median besser
+	- nächstes ziel: preprocess+retargeting reliable und gut machen -> universeller auch für andere bewegungen
+		- erst prints + vergleichen
+			- fällt direkt auf, dass bei double support nie beide füße auf 0 sind, gibt immer von beiden einen bounce nach oben
+				- beide auf niedrigeren / in mitte ziehen? 
+			- bei einzelnen framezahlen als datensatz stark von einzelnen personen dominiert, random welcher fuß höher als der andere geht, bilder sind in Praxisbericht/pictures/dataset mit 120 und 109 frames
+			- ein problem: heel und footjc sind in z mit offset verschoben
+				- könnten pro probant/ sequenz rausgerechnet werden
+		- interpolieren für mehr daten
+			- theoretisch auch möglich alle mit fft zu interpolieren
+	- weiter an füße bei doppelkontakt flatten arbeiten, ansatz: gibt 3 durchgänge in z höhendifferenz, beim ersten koppeln, beim dritten entkoppeln
 
 
 
