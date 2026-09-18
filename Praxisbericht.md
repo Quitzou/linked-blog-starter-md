@@ -543,6 +543,44 @@ In aktueller implementierung:
 			- reference motion berechnung in utils noch fehlerhaft, erster frame sieht richtig aus, dann evtl richtungsfehler? y statt x?
 	- noch offen:
 		- constants zusammenführen
+- 04.09. 11:00 - 12:00 -- 12:30 - 15:00
+	- DFT nochmal refreshen
+-  07.09. 11:45 - 13:00 -- 13:30 - 16:30
+	- noch offen: 
+		- settle
+			- scheint nach späteren tests egal
+	- squash aus m2q
+	- code auf digit zugeschnitten
+	- noch offen -- done
+		- ohne squash retargeting testen
+		- vis_traj testen
+			- sehr komisch, bei test wird loss extrem klein (3e-5), aber in visualisierung sind sites sehr weit auseinander ![[Pasted image 20260907150925.png|210]]
+			- lag daran, dass squash motors noch im speicher und vis pfad war
+	- winkelgrenzen raus, wenn außerhalb, dann eh was falsch
+	- idee für jour fixe:
+		- side by side vergleich retargeting vs laufen
+	- traj auf trainierte agenten failed: erster frame sieht richtig aus, dann direkt schritt zur seite -> umfallen (als wären die pd targets in y statt x), gleiches problem wie vom 03.09.
+		- test mit neu trainiertem: 
+			- sieht gut aus
+- 09.09. 11:15 - 13:00 -- 13:30 - 17:30
+	- auto-reset:
+		- beim umfallen wird beim letzten state value nicht gebootstrappt -> fehlen folgerewards -> schlecht
+		- bei truncation wird letzter step aus training genommen -> kein negativer lernerfolg
+	- offen:
+		- besser die free joints benennen/ nutzen, treten nicht mehr durch schlechte trajektorien auf, nur noch gewollt im zb fuß
+		- loading für trainingsfortschritt
+		- warnings wegmachen (stören auch fortschrittsbalken)
+		- mid swing maybe aus preprocess und immer erste linken strike zb nehmen
+	- test: in old
+		- evtl doch preprocessing von laufen nochmal anpassen -> fuß retargeting mit flachen fuß
+	- für tests in preprocess wanted LHEE und RHEE hinzugefügt, könnte Probleme machen
+	- !!!!außerdem heel und fjc auf min(heel(z), fjc(z)) + skaliert!!!!!!!!!!!!
+	- retargeting test mit neuem fuß skalieren und heel statt ankle als target (in old)
+		- notes: heel site könnte in digit fuß mitte verschoben werden
+		- RL test mit der neuen traj
+			- sieht besser asu, füße flach und bleibt nicht im boden stecken, aber knapp
+
+
 
 # Quellen
 
