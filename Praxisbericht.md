@@ -57,23 +57,9 @@ In aktueller implementierung:
 
 - Pakete herunterladen: poetry add pandas
 
-<<<<<<< HEAD
-
-# Loss calc checklist
-
-- [x] motor id's
-- [x] set and foreward motor pos
-- [ ] get endeffector pos 
-- [ ] calc diff between pos
-# Fragen
-
-- robot model description als vergleich
-- weiter an csv reader/ writer? 
-=======
 # Fragen Manuel
 
 - als Loss: Joint Positions von Digit und normalisiertem Mensch vergleichen (außer Knie)?
-	- origin/main
 
 # Notes
 
@@ -479,7 +465,7 @@ In aktueller implementierung:
 			- PPO Pseudocode: https://spinningup.openai.com/en/latest/algorithms/ppo.html
 			- PPO: https://openai.com/index/openai-baselines-ppo/
 	- erste zwei videos von David Silver geschaut + notes in [[Reinforcement Learning]] gemacht
-- 07.08. -- 11:30 - 13:15 -- 14:15 - 17:00
+- 07.08. -- 11:30 - 13:15 -- 14:15 - 17:30
 	- weiter videos von David Silver geschaut
 - 11.08. -- 10:30 - 12:30 -- 13:00 - 17:15
 	-  video 5 und 6 bis 1:23
